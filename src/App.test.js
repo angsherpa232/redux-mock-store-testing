@@ -1,15 +1,19 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { Provider } from "react-redux";
+import { mount } from "enzyme";
 import App from "./App";
 
-import { findByTestAttr, testStore } from "./utils";
+import { findByTestAttr, makeMockStore } from "./utils";
+import { exmpaleMethod_returnsAValue } from "./App";
 
 const setUp = (initialState = {}) => {
-  const store = testStore(initialState);
-  const wrapper = shallow(<App store={store} />)
-    .childAt(0)
-    .dive();
-  return wrapper;
+  const store = makeMockStore(initialState);
+  const component = mount(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+  return component;
 };
 
 describe("App Component", () => {
@@ -35,17 +39,14 @@ describe("App Component", () => {
     expect(component.length).toBe(1);
   });
 
-  it("should update state as expected", () => {
-    const classInstance = wrapper.instance();
-    classInstance.exampleMethod_updateState();
-    const newState = classInstance.state.hideBtn;
-    expect(newState).toBe(true);
-  });
+  // it("should update state as expected", () => {
+  //   const btn = wrapper.find(SharedButton);
+  //   act(() => btn.props().emitEvent());
+  //   expect(btn.length).toBe(1);
+  // });
 
   it("should return value as expected", () => {
-    const classInstance = wrapper.instance();
-    const newValue = classInstance.exmpaleMethod_returnsAValue(6);
-
+    const newValue = exmpaleMethod_returnsAValue(6);
     expect(newValue).toBe(7);
   });
 });
