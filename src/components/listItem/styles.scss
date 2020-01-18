@@ -1,0 +1,10 @@
+.listItem {
+  border: 1px solid red;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  line-height: 1.6;
+  transform: all 0.4s ease;
+  box-shadow: inset 10px 20px 8px rgba(0, 0, 0, 0.4),
+    inset -10px -20px 8px rgba(0, 0, 0, 0.4);
+}
